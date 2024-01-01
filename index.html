@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Fetcher</title>
+    <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app">
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+
+    <div id="app2">
       <form id="imageForm">
         <label for="address">Address:</label>
         <input type="text" id="address" required />
@@ -20,14 +24,12 @@
         <label for="cid">CID:</label>
         <input type="text" id="cid" required />
 
-        <button type="button" onclick="handleSubmit()">Submit</button>
+        <button id="submit" type="button">Submit</button>
       </form>
 
       <div id="imageContainer" style="display: none" width="500" height="500">
         <img id="fetchedImage" alt="Fetched Image" />
       </div>
     </div>
-
-    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

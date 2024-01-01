@@ -35,7 +35,7 @@ const readContentFromS3 = async (address: string, cid: string) => {
   // TODO: Should use S3Client#readToStream
   const response = await room.readContent(cid);
 
-  return response;
+  return response.toString("base64");
 };
 
 export { readContentFromS3 };

@@ -4,6 +4,13 @@ document
   .querySelector<HTMLButtonElement>("#submit")!
   .addEventListener("click", () => handleSubmit());
 
+interface FormData {
+  address: string;
+  key: string;
+  secret: string;
+  cid: string;
+}
+
 const address = document.getElementById("address") as HTMLInputElement;
 const key = document.getElementById("key") as HTMLInputElement;
 const secret = document.getElementById("secret") as HTMLInputElement;
@@ -45,11 +52,29 @@ function getMockedResponse(): Response {
   return mockedResponse;
 }
 
+async function fetchBufferAndRenderImage(formData: FormData) {
+  console.log(formData);
+  const base64Image = await readContentFromS3(formData.address, formData.cid);
+
+  const dataUrl = `data:image/jpeg;base64,${base64Image}`;
+
+  // Render the image
+  const imageContainer = document.getElementById(
+    "imageContainer"
+  ) as HTMLImageElement;
+  const fetchedImage = document.getElementById(
+    "fetchedImage"
+  ) as HTMLImageElement;
+
+  fetchedImage.src = dataUrl;
+  imageContainer.style.display = "block";
+}
+
 // Define a function to fetch and render the image from a ReadableStream
-async function fetchAndRenderImage(formData: any) {
+async function fetchAndRenderImage(formData: FormData) {
   console.log(formData);
   try {
-    // const response = readConxtentFromS3(formData.address, formData.cid);
+    // const response = await readContentFromS3(formData.address, formData.cid);
 
     const response = getMockedResponse();
 
@@ -82,12 +107,13 @@ export function handleSubmit() {
   const secret = document.getElementById("secret") as HTMLInputElement;
   const cid = document.getElementById("cid") as HTMLInputElement;
 
-  const formData = {
+  const formData: FormData = {
     address: address.value,
     key: key.value,
     secret: secret.value,
     cid: cid.value,
   };
 
-  fetchAndRenderImage(formData);
+  // fetchAndRenderImage(formData);
+  fetchBufferAndRenderImage(formData);
 }

@@ -4,6 +4,16 @@ document
   .querySelector<HTMLButtonElement>("#submit")!
   .addEventListener("click", () => handleSubmit());
 
+const address = document.getElementById("address") as HTMLInputElement;
+const key = document.getElementById("key") as HTMLInputElement;
+const secret = document.getElementById("secret") as HTMLInputElement;
+const cid = document.getElementById("cid") as HTMLInputElement;
+
+key.value = "key";
+secret.value = "secret";
+cid.value = "bafkreihoednm4s2g4vpame3mweewfq5of3hks2mbmkvoksxg3z4rhmweeu";
+address.value = "s3://jvalanen-diory-test3/room";
+
 // Mocked response with ReadableStream
 function getMockedResponse(): Response {
   const base64ImageData =

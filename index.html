@@ -4,12 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Fetcher</title>
+
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-
-    <div id="app2">
+    <div id="app">
       <form id="imageForm">
         <label for="address">Address:</label>
         <input type="text" id="address" required />
@@ -25,10 +24,12 @@
 
         <button id="submit" type="button">Submit</button>
       </form>
-
-      <div id="imageContainer" style="display: none">
-        <img id="fetchedImage" alt="Fetched Image" width="500" height="500" />
-      </div>
     </div>
+
+    <div id="imageContainer" style="display: none">
+      <img id="fetchedImage" alt="Fetched Image" width="500" height="500" />
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

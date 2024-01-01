@@ -27,9 +27,7 @@ const initiateRoom = async (
   return room;
 };
 
-const readContentFromS3 = async () => {
-  const cid = "bafkreihoednm4s2g4vpame3mweewfq5of3hks2mbmkvoksxg3z4rhmweeu";
-  const address = "s3://jvalanen-diory-test3/room";
+const readContentFromS3 = async (address: string, cid: string) => {
   const roomClientType = "S3Client";
 
   const room = await initiateRoom(roomClientType, address);

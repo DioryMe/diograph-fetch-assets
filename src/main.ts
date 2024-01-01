@@ -9,10 +9,12 @@ const key = document.getElementById("key") as HTMLInputElement;
 const secret = document.getElementById("secret") as HTMLInputElement;
 const cid = document.getElementById("cid") as HTMLInputElement;
 
-key.value = "key";
-secret.value = "secret";
-cid.value = "bafkreihoednm4s2g4vpame3mweewfq5of3hks2mbmkvoksxg3z4rhmweeu";
-address.value = "s3://jvalanen-diory-test3/room";
+address.value = localStorage.getItem("a") || "s3://jvalanen-diory-test3/room";
+key.value = localStorage.getItem("k") || "key";
+secret.value = localStorage.getItem("s") || "secret";
+cid.value =
+  localStorage.getItem("cid") ||
+  "bafkreihoednm4s2g4vpame3mweewfq5of3hks2mbmkvoksxg3z4rhmweeu";
 
 // Mocked response with ReadableStream
 function getMockedResponse(): Response {
@@ -47,7 +49,7 @@ function getMockedResponse(): Response {
 async function fetchAndRenderImage(formData: any) {
   console.log(formData);
   try {
-    // const response = readConxtentFromS3();
+    // const response = readConxtentFromS3(formData.address, formData.cid);
 
     const response = getMockedResponse();
 

@@ -54,7 +54,18 @@ function getMockedResponse(): Response {
 
 async function fetchBufferAndRenderImage(formData: FormData) {
   console.log(formData);
-  const base64Image = await readContentFromS3(formData.address, formData.cid);
+
+  const credentials = {
+    accessKeyId: formData.key,
+    secretAccessKey: formData.secret,
+    // sessionToken: role.Credentials.SessionToken,
+  };
+
+  const base64Image = await readContentFromS3(
+    formData.address,
+    formData.cid,
+    credentials
+  );
 
   const dataUrl = `data:image/jpeg;base64,${base64Image}`;
 

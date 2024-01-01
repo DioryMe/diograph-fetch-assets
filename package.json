@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@diograph/diograph": "next",
+    "@diograph/s3-client": "next",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }

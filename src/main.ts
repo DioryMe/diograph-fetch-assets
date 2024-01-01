@@ -1,3 +1,5 @@
+import { readContentFromS3 } from "./room-service";
+
 document
   .querySelector<HTMLButtonElement>("#submit")!
   .addEventListener("click", () => handleSubmit());
@@ -35,13 +37,7 @@ function getMockedResponse(): Response {
 async function fetchAndRenderImage(formData: any) {
   console.log(formData);
   try {
-    // const response = await fetch("YOUR_API_ENDPOINT", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
+    // const response = readConxtentFromS3();
 
     const response = getMockedResponse();
 

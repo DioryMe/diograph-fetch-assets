@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Fetcher</title>
+  </head>
+  <body>
+    <div id="app">
+      <form id="imageForm">
+        <label for="address">Address:</label>
+        <input type="text" id="address" required />
+
+        <label for="key">Key:</label>
+        <input type="text" id="key" required />
+
+        <label for="secret">Secret:</label>
+        <input type="text" id="secret" required />
+
+        <label for="cid">CID:</label>
+        <input type="text" id="cid" required />
+
+        <button type="button" onclick="handleSubmit()">Submit</button>
+      </form>
+
+      <div id="imageContainer" style="display: none" width="500" height="500">
+        <img id="fetchedImage" alt="Fetched Image" />
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

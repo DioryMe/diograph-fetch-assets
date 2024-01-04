@@ -1,16 +1,16 @@
 import { ConnectionClient, Room, RoomClient } from "@diograph/diograph";
-import { S3Client } from "@diograph/s3-client";
+import { S3Client } from "./s3Client";
+import { AwsCredentialIdentity } from "@aws-sdk/types";
 
 const getClientAndVerify = async (
   clientType: string,
   address: string,
-  credentials: any
+  credentials: AwsCredentialIdentity
 ): Promise<ConnectionClient> => {
   console.log(`Verifying address for ${clientType}:`, address);
   let client: ConnectionClient;
 
   if ("S3Client") {
-    console.log("CRED", credentials);
     client = new S3Client(address, { region: "eu-west-1", credentials });
     await client.verify();
   } else {
@@ -20,16 +20,7 @@ const getClientAndVerify = async (
   return client;
 };
 
-const initiateRoom = async (
-  contentClientType: string,
-  address: string,
-  credentials: any
-): Promise<Room> => {
-  const client = await getClientAndVerify(
-    contentClientType,
-    address,
-    credentials
-  );
+const initiateRoom = async (client: ConnectionClient): Promise<Room> => {
   const roomClient = new RoomClient(client);
   const room = new Room(roomClient);
   return room;
@@ -38,16 +29,18 @@ const initiateRoom = async (
 const readContentFromS3 = async (
   address: string,
   cid: string,
-  credentials: any
+  credentials: AwsCredentialIdentity
 ) => {
   const roomClientType = "S3Client";
 
-  const room = await initiateRoom(roomClientType, address, credentials);
-  await room.loadRoom({ S3Client: S3Client });
-  // TODO: Should use S3Client#readToStream
-  const response = await room.readContent(cid);
+  const client = await getClientAndVerify(roomClientType, address, credentials);
+  const room = await initiateRoom(client);
+  // await room.loadRoom({ S3Client: S3Client });
+  // // TODO: Should use S3Client#readToStream
+  // const response = await room.readContent(cid);
 
-  return response.toString("base64");
+  // return response.toString("base64");
+  return "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOMPvD6PwAGiwMHcHyXEAAAAABJRU5ErkJggg==";
 };
 
 export { readContentFromS3 };

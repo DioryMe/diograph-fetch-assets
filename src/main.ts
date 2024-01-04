@@ -58,7 +58,6 @@ async function fetchBufferAndRenderImage(formData: FormData) {
   const credentials = {
     accessKeyId: formData.key,
     secretAccessKey: formData.secret,
-    // sessionToken: role.Credentials.SessionToken,
   };
 
   const base64Image = await readContentFromS3(

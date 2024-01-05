@@ -82,14 +82,13 @@ class S3Client implements ConnectionClient {
     console.log("s3 read text item", this.keyWithPrefix(key));
     const responseBody = await this.getObjectBody(key);
 
-    return responseBody.transformToString() as string;
+    return responseBody.transformToString();
   };
 
   readItem = async (key: string) => {
     console.log("s3 read item", this.keyWithPrefix(key));
     const response = await this.getObjectBody(key);
 
-    console.log("booom");
     return this.streamToBuffer(response as ReadableStream);
   };
 
@@ -130,7 +129,7 @@ class S3Client implements ConnectionClient {
     console.log("s3 write item", this.bucketName, this.keyWithPrefix(key));
 
     const objectParams = {
-      Body: fileContent,
+      Body: fileContent as any,
       Bucket: this.bucketName,
       Key: this.keyWithPrefix(key),
     };
@@ -205,24 +204,6 @@ class S3Client implements ConnectionClient {
   // private
 
   streamToBuffer = async (stream: ReadableStream) => {
-    // const reader = stream.getReader();
-    // const newReadableStream = new ReadableStream({
-    //   start(controller) {
-    //     return pump();
-    //     function pump() {
-    //       return reader.read().then(({ done, value }) => {
-    //         // When no more data needs to be consumed, close the stream
-    //         if (done) {
-    //           controller.close();
-    //           return;
-    //         }
-    //         // Enqueue the next data chunk into our target stream
-    //         controller.enqueue(value);
-    //         return pump();
-    //       });
-    //     }
-    //   },
-    // });
     const response = new Response(stream);
     const blob = await response.blob();
     return blob.arrayBuffer();

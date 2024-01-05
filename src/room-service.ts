@@ -35,12 +35,21 @@ const readContentFromS3 = async (
 
   const client = await getClientAndVerify(roomClientType, address, credentials);
   const room = await initiateRoom(client);
-  // await room.loadRoom({ S3Client: S3Client });
+  await room.loadRoom({ S3Client: S3Client });
   // // TODO: Should use S3Client#readToStream
-  // const response = await room.readContent(cid);
+  const response = await room.readContent(cid);
 
-  // return response.toString("base64");
-  return "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOMPvD6PwAGiwMHcHyXEAAAAABJRU5ErkJggg==";
+  return _arrayBufferToBase64(response);
 };
+
+function _arrayBufferToBase64(buffer: ArrayBuffer) {
+  var binary = "";
+  var bytes = new Uint8Array(buffer);
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
 
 export { readContentFromS3 };

@@ -1,6 +1,5 @@
 import { ConnectionClient, Room, RoomClient } from "@diograph/diograph";
-import { S3Client } from "./s3Client";
-// import { S3Client } from "@diograph/s3-client";
+import { S3Client } from "@diograph/s3-client";
 import { AwsCredentialIdentity } from "@aws-sdk/types";
 
 const getClientAndVerify = async (

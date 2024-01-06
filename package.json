@@ -12,6 +12,7 @@
   "devDependencies": {
     "@diograph/diograph": "next",
     "@diograph/s3-client": "next",
+    "@aws-sdk/types": "3.222.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }

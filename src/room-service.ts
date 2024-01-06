@@ -36,7 +36,12 @@ const readContentFromS3 = async (
 
   const client = await getClientAndVerify(roomClientType, address, credentials);
   const room = await initiateRoom(client);
-  await room.loadRoom({ S3Client: S3Client });
+  await room.loadRoom({
+    S3Client: {
+      clientConstructor: S3Client,
+      credentials: { region: "eu-west-1", credentials },
+    },
+  });
   // // TODO: Should use S3Client#readToStream
   const response = await room.readContent(cid);
 

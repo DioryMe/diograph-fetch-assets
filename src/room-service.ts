@@ -1,24 +1,6 @@
-import { ConnectionClient, Room, RoomClient } from "@diograph/diograph";
+import { constructAndLoadRoom } from "@diograph/utils";
 import { S3Client } from "@diograph/s3-client";
 import { AwsCredentialIdentity } from "@aws-sdk/types";
-
-const getClientAndVerify = async (
-  clientType: string,
-  address: string,
-  credentials: AwsCredentialIdentity
-): Promise<ConnectionClient> => {
-  console.log(`Verifying address for ${clientType}:`, address);
-  let client: ConnectionClient;
-
-  if ("S3Client") {
-    client = new S3Client(address, { region: "eu-west-1", credentials });
-    await client.verify();
-  } else {
-    throw new Error(`getClientAndVerify: Unknown clientType: ${clientType}`);
-  }
-
-  return client;
-};
 
 const readContentFromS3 = async (
   address: string,
@@ -27,16 +9,14 @@ const readContentFromS3 = async (
 ) => {
   const roomClientType = "S3Client";
 
-  const client = await getClientAndVerify(roomClientType, address, credentials);
-  const roomClient = new RoomClient(client);
-  const room = new Room(roomClient);
-  await room.loadRoom({
+  const room = await constructAndLoadRoom(address, roomClientType, {
     S3Client: {
       clientConstructor: S3Client,
       credentials: { region: "eu-west-1", credentials },
     },
   });
-  // // TODO: Should use S3Client#readToStream
+
+  // TODO: Should use S3Client#readToStream
   const response = await room.readContent(cid);
 
   return arrayBufferToBase64(response);

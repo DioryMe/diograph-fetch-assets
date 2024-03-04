@@ -7,12 +7,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "tsc && vite build && vite preview"
   },
   "devDependencies": {
+    "@aws-sdk/types": "3.222.0",
     "@diograph/diograph": "next",
     "@diograph/s3-client": "next",
-    "@aws-sdk/types": "3.222.0",
+    "@diograph/utils": "^0.0.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }
